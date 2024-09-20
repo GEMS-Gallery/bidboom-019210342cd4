@@ -1,0 +1,26 @@
+type Time = int;
+type Bid = 
+ record {
+   amount: nat;
+   bidder: principal;
+   timestamp: Time;
+ };
+type Auction = 
+ record {
+   active: bool;
+   description: text;
+   endTime: Time;
+   highestBid: opt Bid;
+   id: nat;
+   owner: principal;
+   startPrice: nat;
+   title: text;
+ };
+service : {
+  createAuction: (text, text, nat, nat) -> (nat);
+  endAuction: (nat) -> (bool);
+  getActiveAuctions: () -> (vec Auction) query;
+  getAllAuctions: () -> (vec Auction) query;
+  getAuction: (nat) -> (opt Auction) query;
+  placeBid: (nat, nat) -> (bool);
+}
